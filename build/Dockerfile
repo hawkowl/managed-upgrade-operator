@@ -11,6 +11,8 @@ RUN make go-build
 ####
 FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 
+RUN microdnf update && microdnf clean all
+
 ENV USER_UID=1001 \
     USER_NAME=managed-upgrade-operator
 
