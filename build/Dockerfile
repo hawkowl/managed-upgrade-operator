@@ -5,6 +5,7 @@ WORKDIR /workdir
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
+ENV GOBUILDTAGS="-tags mandate_fips"
 RUN make go-build
 
 ####

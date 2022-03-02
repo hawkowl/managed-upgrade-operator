@@ -69,13 +69,14 @@ MAINPACKAGE ?= ./cmd/manager
 
 GOOS?=$(shell go env GOOS)
 GOARCH?=$(shell go env GOARCH)
+GOBUILDTAGS?=""
 
 # Consumers may override GOFLAGS_MOD e.g. to use `-mod=vendor`
 unexport GOFLAGS
 GOFLAGS_MOD ?=
 GOENV=GOOS=${GOOS} GOARCH=${GOARCH} CGO_ENABLED=0 GOFLAGS=${GOFLAGS_MOD}
 
-GOBUILDFLAGS=-gcflags="all=-trimpath=${GOPATH}" -asmflags="all=-trimpath=${GOPATH}"
+GOBUILDFLAGS=-gcflags="all=-trimpath=${GOPATH}" -asmflags="all=-trimpath=${GOPATH}" ${GOBUILDTAGS}
 
 # GOLANGCI_LINT_CACHE needs to be set to a directory which is writeable
 # Relevant issue - https://github.com/golangci/golangci-lint/issues/734
