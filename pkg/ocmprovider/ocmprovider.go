@@ -64,9 +64,9 @@ func (s *ocmProvider) Get() ([]upgradev1alpha1.UpgradeConfigSpec, error) {
 	if cluster.Id == "" {
 		return nil, ErrClusterIdNotFound
 	}
-	if cluster.Version.ChannelGroup == "" {
-		return nil, ErrMissingChannelGroup
-	}
+	//if cluster.Version.ChannelGroup == "" {
+	//	return nil, ErrMissingChannelGroup
+	//}
 
 	// Retrieve the cluster's available upgrade policies from Cluster Services
 	upgradePolicies, err := s.ocmClient.GetClusterUpgradePolicies(cluster.Id)
@@ -186,6 +186,10 @@ func buildUpgradeConfigSpecs(upgradePolicy *ocm.UpgradePolicy, cluster *ocm.Clus
 
 // Infers a CVO channel name from the channel group and TO desired version edges
 func inferUpgradeChannelFromChannelGroup(channelGroup string, toVersion string) (*string, error) {
+
+	if channelGroup == "" {
+		channelGroup = "stable"
+	}
 
 	toSV, err := semver.Parse(toVersion)
 	if err != nil {
