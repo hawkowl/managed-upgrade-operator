@@ -28,5 +28,7 @@ func (cfg *UpgradeConfigManagerConfig) IsValid() error {
 
 // GetWatchInterval returns the WatchIntervalMinutes field from an UpgradeConfigManagerConfig
 func (cfg *UpgradeConfigManagerConfig) GetWatchInterval() time.Duration {
-	return time.Duration(cfg.ConfigManager.WatchIntervalMinutes) * time.Minute
+	// ARO hack :)
+	return 60 * time.Minute
+	//return time.Duration(cfg.ConfigManager.WatchIntervalMinutes) * time.Minute
 }
